@@ -11,6 +11,8 @@ void recieve_thread(){
    while(1) {
       if(uart.readable()){
             char recv = uart.getc();
+            //pc.scanf("%s",recv);
+            //pc.printf("%c",recv);
             pc.putc(recv);
             pc.printf("\r\n");
       }
@@ -21,7 +23,8 @@ void send_thread(){
    while(1){
       if( button == 0){
          char s[21];
-         sprintf(s,"image_classification");
+         //sprintf(s,"image_classification");
+         sprintf(s,"qrcode");
          uart.puts(s);
          pc.printf("send\r\n");
          wait(0.5);
@@ -31,6 +34,7 @@ void send_thread(){
 
 int main(){
    uart.baud(9600);
+   pc.baud(9600);
    thread1.start(send_thread);
    thread2.start(recieve_thread);
 }
